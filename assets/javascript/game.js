@@ -2,21 +2,27 @@
 var characters = [
   {
     name: "luke",
+    hp: 100,
     pic: "somepic"
   },
   {
     name: "obi",
+    hp: 120,
     pic: "somepic"
   },
   {
     name: "sid",
+    hp: 150,
     pic: "somepic"
   },
   {
     name: "vader",
+    hp: 180,
     pic: "somepic"
   }
 ];
+
+var className =  $(this).attr("class"); //might be helpful later
 
 $(document).ready(function() {
   
@@ -27,8 +33,18 @@ $(document).ready(function() {
   });
 
   $("main").on("click", "div.character", function () {
-    $(this).animate({top: "100px"});
-    $(this).attr("attack-power", 10);
+    var heroLength = $(".hero").length;
+    var opponentLength = $(".opponent").length;
+
+    if (!heroLength){
+      $(this).animate({top: "100px"});
+      $(this).attr("attack-power", 10).addClass("hero");
+    } else if (!opponentLength){
+      $(this).animate({top: "300px", left: "0px"});
+      $(this).attr("counter-power", 20).addClass("opponent");
+    }
+
+
   });
 
 
@@ -82,17 +98,14 @@ function makeResButton() {}
 //
 
 /* 
-script part
 
-
-select hero: initialize hero, take away option to select this div
-select opponent: initialize opponent, take away option to select any div
-
--- event listeners set to play
-
-attack:  reduces the hp of opponent by hero.attack + calculation, reduces hero hp by fixed
-if hp of hero drops to <1 then show you lose
-if hp of opponent drops to <1 then select new opponent
+ once you click start, the four choices are shown
+ once you choose one character, the choice is locked out to opponents to choose
+ once the opponent is chosen, then all characters are locked up and you can only choose the attack button
+ attack will hit for hp and increment the attack power. hero will also get hit for x points depending on the opponent chosen
+ once the hero's hp goes to zero its game over
+ once the opponents hp goes to zero, you will be able to choose another opponent.
+ choose the opponent again and it will be locked out again
 
 
 */
