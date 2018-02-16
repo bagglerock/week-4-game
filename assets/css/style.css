@@ -10,7 +10,6 @@ main {
 
 .character {
     position: relative;
-    float: left;
     margin-right: 10px;
     background-color: blue;
     height: 75px;
@@ -19,3 +18,12 @@ main {
     color: white;
 
 }
+
+.float {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+

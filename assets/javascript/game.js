@@ -43,21 +43,28 @@ $(document).ready(function() {
   $("main").on("click", "div.character", function () {
     var heroLength = $(".hero").length;
     var opponentLength = $(".opponent").length;
+    var className =  $(this).attr("class")
 
     if (!heroLength){
       $(this).animate({top: "100px"});
-      $(this).attr("attack-power", 10).addClass("hero");
-    } else if (!opponentLength){
-      $(this).animate({top: "300px", left: "0px"});
-      $(this).attr("counter-power", 20).addClass("opponent");
+      $(this).removeClass("float");
+      $(this).attr("attack-power", 10).addClass("hero clear");
+      $("main").append(this);
+    } else if (!opponentLength && !className.includes("hero")){
+      $(this).animate({top: "3px", left: "200px"});
+      $(this).removeClass("float");
+      $(this).attr("counter-power", 20).addClass("opponent clear");
       var attackBtn = $("<button>");
       attackBtn.attr("id", "attack").text("Attack");
       $("main").append(attackBtn);
+      $("main").append(this);
     }
-
-
+  
   });
 
+  $("main").on("click", "#attack", function (){
+    console.log("test");
+  })
 
 
 });
@@ -69,7 +76,7 @@ $(document).ready(function() {
 function initGame() {
   for (var i = 0; i < characters.length; i++) {
     var character = $("<div>");
-    character.addClass("character").attr("id", characters[i].name).text(characters[i].name);
+    character.addClass("character float").attr("id", characters[i].name).text(characters[i].name);
     $("main").append(character);
   }
 }
