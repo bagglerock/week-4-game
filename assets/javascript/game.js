@@ -1,30 +1,38 @@
 //  An array of character objects to cycle through for initiating the game
-var characters = {
-    "Luke Skywalker" : "somepic",
-    "Obi Wan Kenobi" : "somepic",
-    "Darth Sidious" : "somepic",
-    "Darth Vader" : "somepic"
-};
-
+var characters = [
+  {
+    name: "luke",
+    pic: "somepic"
+  },
+  {
+    name: "obi",
+    pic: "somepic"
+  },
+  {
+    name: "sid",
+    pic: "somepic"
+  },
+  {
+    name: "vader",
+    pic: "somepic"
+  }
+];
 
 $(document).ready(function() {
   $("#start").on("click", function() {
-    //initGame();
-console.log(characters.length);
-
-
+    initGame();
   });
 });
 
 //functions: add animations, VS later
 
 //  Initialize all 4 characters
-function initGame () {
-    var heroBox = $("<div>");
-  heroBox.addClass("hero character");
-  heroBox.attr("attack-power", 10);
-  $("main").append(heroBox);
-  $(".hero").animate({top: "100px", left: "200px"});
+function initGame() {
+  for (var i = 0; i < characters.length; i++) {
+    var character = $("<div>");
+    character.addClass("character").attr("id", characters[i].name);
+    $("main").append(character);
+  }
 }
 
 // initialize hero:  create hero object
@@ -33,7 +41,7 @@ function initHero() {
   heroBox.addClass("hero character");
   heroBox.attr("attack-power", 10);
   $("main").append(heroBox);
-  $(".hero").animate({top: "100px", left: "200px"});
+  $(".hero").animate({ top: "100px", left: "200px" });
 }
 
 // initialize opponent: create opponent object
