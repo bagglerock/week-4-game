@@ -19,10 +19,22 @@ var characters = [
 ];
 
 $(document).ready(function() {
+  
+  
   $("#start").on("click", function() {
     initGame();
+    $("#start").hide();
   });
+
+  $("main").on("click", "div.character", function () {
+    $(this).animate({top: "100px"});
+    $(this).attr("attack-power", 10);
+  });
+
+
+
 });
+
 
 //functions: add animations, VS later
 
@@ -30,13 +42,13 @@ $(document).ready(function() {
 function initGame() {
   for (var i = 0; i < characters.length; i++) {
     var character = $("<div>");
-    character.addClass("character").attr("id", characters[i].name);
+    character.addClass("character").attr("id", characters[i].name).text(characters[i].name);
     $("main").append(character);
   }
 }
 
 // initialize hero:  create hero object
-function initHero() {
+function selectHero() {
   var heroBox = $("<div>");
   heroBox.addClass("hero character");
   heroBox.attr("attack-power", 10);
@@ -45,7 +57,7 @@ function initHero() {
 }
 
 // initialize opponent: create opponent object
-function initOpp() {}
+function selectOpponent() {}
 
 // create attack button
 function makeAttButton() {}
@@ -72,8 +84,6 @@ function makeResButton() {}
 /* 
 script part
 
-start game: reset
--- event listeners set to initialize
 
 select hero: initialize hero, take away option to select this div
 select opponent: initialize opponent, take away option to select any div
