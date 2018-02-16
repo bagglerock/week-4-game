@@ -3,21 +3,29 @@ var characters = [
   {
     name: "luke",
     hp: 100,
+    ap: 5,
+    cp: 10,
     pic: "somepic"
   },
   {
     name: "obi",
     hp: 120,
+    ap: 8,
+    cp: 15,
     pic: "somepic"
   },
   {
     name: "sid",
     hp: 150,
+    ap: 12,
+    cp: 18,
     pic: "somepic"
   },
   {
     name: "vader",
     hp: 180,
+    ap: 15,
+    cp: 20,
     pic: "somepic"
   }
 ];
@@ -42,6 +50,9 @@ $(document).ready(function() {
     } else if (!opponentLength){
       $(this).animate({top: "300px", left: "0px"});
       $(this).attr("counter-power", 20).addClass("opponent");
+      var attackBtn = $("<button>");
+      attackBtn.attr("id", "attack").text("Attack");
+      $("main").append(attackBtn);
     }
 
 
@@ -65,11 +76,7 @@ function initGame() {
 
 // initialize hero:  create hero object
 function selectHero() {
-  var heroBox = $("<div>");
-  heroBox.addClass("hero character");
-  heroBox.attr("attack-power", 10);
-  $("main").append(heroBox);
-  $(".hero").animate({ top: "100px", left: "200px" });
+
 }
 
 // initialize opponent: create opponent object
