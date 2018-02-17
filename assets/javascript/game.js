@@ -1,4 +1,4 @@
-//  An array of character objects to cycle through for initiating the game
+//  Array of characters to choose from
 var characters = [
   {
     name: "luke",
@@ -19,7 +19,7 @@ var characters = [
     hp: 150,
     ap: 12,
     cp: 18,
-    pic: "./assets/images/sid.jpg"
+    pic: "./assets/images/sid.png"
   },
   {
     name: "vader",
@@ -30,96 +30,55 @@ var characters = [
   }
 ];
 
-var className =  $(this).attr("class"); //might be helpful later
+//**  Script starts here  **//
 
-$(document).ready(function() {
-  
-  
-  $("#start").on("click", function() {
-    initGame();
-    $("#start").hide();
-  });
+//  Click the start button to set up the game and hide the start button
+$("#start").on("click", function() {
+  $("#start").hide();
+  initGame();
+});
 
-  $("main").on("click", "div.character", function () {
-    var heroLength = $(".hero").length;
-    var opponentLength = $(".opponent").length;
-    var className =  $(this).attr("class")
+$(".character-select").on("click", "div.character", function() {
+  var heroLength = $(".hero").length;
+  var opponentLength = $(".opponent").length;
+  var className = $(this).attr("class");
 
-    if (!heroLength){
-      $(this).animate({top: "100px"});
-      $(this).removeClass("float");
-      $(this).attr("attack-power", 10).addClass("hero clear");
-      $("main").append(this);
-    } else if (!opponentLength && !className.includes("hero")){
-      $(this).animate({top: "3px", left: "200px"});
-      $(this).removeClass("float");
-      $(this).attr("counter-power", 20).addClass("opponent clear");
-      var attackBtn = $("<button>");
-      attackBtn.attr("id", "attack").text("Attack");
-      $("main").append(attackBtn);
-      $("main").append(this);
-    }
-  
-  });
+  if (!heroLength) {
+    $(this).remove();
+    $(this).addClass("hero");
+    $(".arena").append(this);
+  } else if (!opponentLength && !className.includes("hero")) {
+    $(this).removeClass("float-left");
+    $(this).addClass("opponent float-right");
+    var attackBtn = $("<button>");
+    attackBtn.attr("id", "attack").text("Attack");
+    $(".arena").append(attackBtn);
+    $(".arena").append(this);
+    $(".character-select div.character").fadeTo(1000, 0.2);
+  }
+});
 
-  $("main").on("click", "#attack", function (){
-    console.log("test");
-  })
+$("#attack").on("click", function() {
+  //reduce the hp of opponent by ap of hero and double hero ap
 
+  //reduce the hp of the hero by cp of the opponent
 
 });
 
-
-//functions: add animations, VS later
-
-//  Initialize all 4 characters
+//**  Functions  **//
 function initGame() {
+  //  Go through the array and set up each of the characters and append an image to each of the new divs
   for (var i = 0; i < characters.length; i++) {
     var character = $("<div>");
-    character.addClass("character float").attr("id", characters[i].name).text(characters[i].name);
-    $("main").append(character);
+    var image = $("<img>");
+    character.addClass("character float-left");
+    character
+      .attr("id", characters[i].name)
+      .attr("hit-points", characters[i].hp)
+      .attr("attack-power", characters[i].ap)
+      .attr("counter-power", characters[i].cp);
+    image.attr("src", characters[i].pic);
+    $(".character-select").append(character);
+    $(character).append(image);
   }
 }
-
-// initialize hero:  create hero object
-function selectHero() {
-
-}
-
-// initialize opponent: create opponent object
-function selectOpponent() {}
-
-// create attack button
-function makeAttButton() {}
-
-// attack
-function attack() {}
-
-// booleans for isDead - if hp<1 return true else false
-function isDead() {}
-
-// showWin wins++ message create reset button
-function showWin() {}
-
-// showLose losses++ message create reset button
-function showLose() {}
-
-// create reset button
-function makeResButton() {}
-
-// reset - bring back to initial state
-
-//
-
-/* 
-
- once you click start, the four choices are shown
- once you choose one character, the choice is locked out to opponents to choose
- once the opponent is chosen, then all characters are locked up and you can only choose the attack button
- attack will hit for hp and increment the attack power. hero will also get hit for x points depending on the opponent chosen
- once the hero's hp goes to zero its game over
- once the opponents hp goes to zero, you will be able to choose another opponent.
- choose the opponent again and it will be locked out again
-
-
-*/
