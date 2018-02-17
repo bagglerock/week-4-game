@@ -39,17 +39,18 @@ $("#start").on("click", function() {
 });
 
 $(".character-select").on("click", "div.character", function() {
-  var heroLength = $(".hero").length;
-  var opponentLength = $(".opponent").length;
+  var heroLength = $("#hero").length;
+  var opponentLength = $("#opponent").length;
   var className = $(this).attr("class");
 
   if (!heroLength) {
     $(this).remove();
-    $(this).addClass("hero");
+    $(this).attr("id", "hero");
     $(".arena").append(this);
   } else if (!opponentLength && !className.includes("hero")) {
     $(this).removeClass("float-left");
-    $(this).addClass("opponent float-right");
+    $(this).addClass("float-right");
+    $(this).attr("id", "opponent");
     var attackBtn = $("<button>");
     attackBtn.attr("id", "attack").text("Attack");
     $(".arena").append(attackBtn);
@@ -58,10 +59,24 @@ $(".character-select").on("click", "div.character", function() {
   }
 });
 
-$("#attack").on("click", function() {
+$(".arena, #attack").on("click", function() {
+  var attackPower = $("#hero").attr("attack-power");
+  var hpHero = $("#hero").attr("hit-points");
+  var counterPower = $("#opponent").attr("counter-power");
+  var hpOpponent = $("#opponent").attr("hit-points"); 
+  
   //reduce the hp of opponent by ap of hero and double hero ap
+  hpOpponent -= attackPower;
+  attackPower = attackPower + attackPower; // this is wrong... but it updates
+  $("#hero").attr("attack-power", attackPower);
+  $("#opponent").attr("hit-points", hpOpponent);
+  console.log(hpOpponent);
+
+
+  //check the hp of the opponent before firing the next shot
 
   //reduce the hp of the hero by cp of the opponent
+  
 
 });
 
@@ -73,7 +88,6 @@ function initGame() {
     var image = $("<img>");
     character.addClass("character float-left");
     character
-      .attr("id", characters[i].name)
       .attr("hit-points", characters[i].hp)
       .attr("attack-power", characters[i].ap)
       .attr("counter-power", characters[i].cp);
