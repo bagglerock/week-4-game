@@ -60,14 +60,14 @@ $(".character-select").on("click", "div.character", function() {
 });
 
 $(".arena, #attack").on("click", function() {
-  var attackPower = $("#hero").attr("attack-power");
-  var hpHero = $("#hero").attr("hit-points");
-  var counterPower = $("#opponent").attr("counter-power");
-  var hpOpponent = $("#opponent").attr("hit-points"); 
+  var attackPower = parseInt($("#hero").attr("attack-power"));
+  var hpHero = parseInt($("#hero").attr("hit-points"));
+  var counterPower = parseInt($("#opponent").attr("counter-power"));
+  var hpOpponent = parseInt($("#opponent").attr("hit-points")); 
   
   //reduce the hp of opponent by ap of hero and double hero ap
   hpOpponent -= attackPower;
-  attackPower = attackPower + attackPower; // this is wrong... but it updates
+  attackPower += attackPower; // this is wrong... but it updates
   $("#hero").attr("attack-power", attackPower);
   $("#opponent").attr("hit-points", hpOpponent);
   console.log(hpOpponent);
