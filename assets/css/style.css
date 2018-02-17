@@ -1,13 +1,57 @@
+body {
+    background-color: black;
 
+}
+header {
+    height: 75px;
+    padding-top: 5px;
+    padding-left: 5px;
+    width: 100%;
+    border-bottom: 2px yellow solid;
+    
+}
 
 main {
-    background-color: coral;
-    width: 500px;
-    height: 500px;
-    margin: 20px 0 0 20px;
+    width: 100%;
+}
+
+footer {
+    position: absolute;
+    height: 25px;
+    bottom: 0;
+    width: 100%;
+    color: yellow;
+    text-align: center;
+}
+
+.main-wrapper {
+    margin: 20px 20px;
+    height: 600px;
+    width: 715px;
+}
+
+.scores, .character-select, .arena {
+    border: solid yellow 2px;
+    width: 100%;
+    margin: 5px 0 ;
+
+}
+.scores{
+    height: 75px;
+    
+}
+
+.character-select {
+    height: 200px;
 
 }
 
+.arena {
+    height: 300px;
+}
+
+
+/*
 .character {
     position: relative;
     margin-right: 10px;
@@ -26,4 +70,4 @@ main {
 .clear {
     clear: both;
 }
-
+*/

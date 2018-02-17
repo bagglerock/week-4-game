@@ -5,28 +5,28 @@ var characters = [
     hp: 100,
     ap: 5,
     cp: 10,
-    pic: "somepic"
+    pic: "./assets/images/luke.jpg"
   },
   {
     name: "obi",
     hp: 120,
     ap: 8,
     cp: 15,
-    pic: "somepic"
+    pic: "./assets/images/obi.jpg"
   },
   {
     name: "sid",
     hp: 150,
     ap: 12,
     cp: 18,
-    pic: "somepic"
+    pic: "./assets/images/sid.jpg"
   },
   {
     name: "vader",
     hp: 180,
     ap: 15,
     cp: 20,
-    pic: "somepic"
+    pic: "./assets/images/vader.jpg"
   }
 ];
 
