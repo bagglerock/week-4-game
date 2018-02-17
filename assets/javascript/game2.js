@@ -30,20 +30,54 @@ var characters = [
   }
 ];
 
-//  Script
+//**  Script starts here  **//
+
+//  Click the start button to set up the game and hide the start button
 $("#start").on("click", function() {
   $("#start").hide();
   initGame();
 });
 
-//  Functions
+$(".character-select").on("click", "div.character", function () {
+    var heroLength = $(".hero").length;
+    var opponentLength = $(".opponent").length;
+    var className =  $(this).attr("class")
+
+    if (!heroLength)
+    {
+      $(this).remove();
+      $(this).attr("attack-power", 10).addClass("hero");
+      $(".arena").append(this);
+    } 
+    else if (!opponentLength && !className.includes("hero"))
+    {
+      $(this).removeClass("float-left");
+      $(this).attr("counter-power", 20).addClass("opponent float-right");
+      var attackBtn = $("<button>");
+      attackBtn.attr("id", "attack").text("Attack");
+      $(".arena").append(attackBtn);
+      $(".arena").append(this);
+      $(".character-select div.character").fadeTo(1000, 0.2);
+    }
+  
+  });
+
+
+
+
+
+
+//**  Functions  **//
 function initGame() {
-  for (var i = 0; i < characters.length; i++) {
+  //  Go through the array and set up each of the characters and append an image to each of the new divs
+  for (var i = 0; i < characters.length; i++) 
+  {
     var character = $("<div>");
     var image = $("<img>");
-    character.addClass("character float").attr("id", characters[i].name);
+    character.addClass("character float-left").attr("id", characters[i].name);
     image.attr("src", characters[i].pic);
     $(".character-select").append(character);
     $(character).append(image);
   }
+
 }
