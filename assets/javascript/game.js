@@ -70,12 +70,17 @@ $(".arena, #attack").on("click", function() {
   attackPower += attackPower; // this is wrong... but it updates
   $("#hero").attr("attack-power", attackPower);
   $("#opponent").attr("hit-points", hpOpponent);
-  console.log(hpOpponent);
+  console.log("Opponents HP: " + hpOpponent);
 
 
   //check the hp of the opponent before firing the next shot
 
   //reduce the hp of the hero by cp of the opponent
+  hpHero -= counterPower;
+  $("#hero").attr("hit-points", hpHero);
+  console.log("Hero's HP: " + hpHero);
+
+  //check to see of the hero's hp is 0
   
 
 });
