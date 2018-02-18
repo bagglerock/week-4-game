@@ -1,34 +1,39 @@
 //  Array of characters to choose from
+
 var characters = [
-  {
-    name: "luke",
-    hp: 100,
-    ap: 5,
-    cp: 10,
-    pic: "./assets/images/luke.jpg"
-  },
-  {
-    name: "obi",
-    hp: 120,
-    ap: 8,
-    cp: 15,
-    pic: "./assets/images/obi.jpg"
-  },
-  {
-    name: "sid",
-    hp: 150,
-    ap: 12,
-    cp: 18,
-    pic: "./assets/images/sid.png"
-  },
-  {
-    name: "vader",
-    hp: 180,
-    ap: 15,
-    cp: 20,
-    pic: "./assets/images/vader.jpg"
-  }
+  {name: "luke", hp: 100, ap: 5, cp: 10, pic: "./assets/images/luke.jpg"},
+  {name: "obi", hp: 120, ap: 8, cp: 15, pic: "./assets/images/obi.jpg",},
+  {name: "sid", hp: 150, ap: 12, cp: 18, pic: "./assets/images/sid.png"},
+  {name: "vader", hp: 180, ap: 15, cp: 20, pic: "./assets/images/vader.jpg"}
 ];
+
+var characters = {
+  luke : {
+    hp : 100,
+    ap : 5,
+    cp : 10,
+    pic : "./assets/images/luke.jpg"
+  },
+  obi : {
+    hp : 120,
+    ap : 8,
+    cp : 15,
+    pic : "./assets/images/obi.jpg"
+  },
+  sid : {
+    hp : 150,
+    ap : 12,
+    cp : 18,
+    pic : "./assets/images/sid.jpg"
+  },
+  vader : {
+    hp : 180,
+    ap : 15,
+    cp : 20,
+    pic : "./assets/images/vader.jpg"
+  }
+}
+
 
 //**  Script starts here  **//
 
@@ -48,9 +53,10 @@ $(".character-select").on("click", "div.character", function() {
     $(this).attr("id", "hero");
     $(".arena").append(this);
   } else if (!opponentLength && !className.includes("hero")) {
-    $(this).removeClass("float-left");
-    $(this).addClass("float-right");
-    $(this).attr("id", "opponent");
+    $(this)
+    .removeClass("float-left")
+    .addClass("float-right")
+    .attr("id", "opponent");
     var attackBtn = $("<button>");
     attackBtn.attr("id", "attack").text("Attack");
     $(".arena").append(attackBtn);
@@ -60,18 +66,18 @@ $(".character-select").on("click", "div.character", function() {
 });
 
 $(".arena, #attack").on("click", function() {
+  var heroName = $("#hero").attr("name");
   var attackPower = parseInt($("#hero").attr("attack-power"));
   var hpHero = parseInt($("#hero").attr("hit-points"));
   var counterPower = parseInt($("#opponent").attr("counter-power"));
-  var hpOpponent = parseInt($("#opponent").attr("hit-points")); 
-  
+  var hpOpponent = parseInt($("#opponent").attr("hit-points"));
+
   //reduce the hp of opponent by ap of hero and double hero ap
   hpOpponent -= attackPower;
-  attackPower += attackPower; // this is wrong... but it updates
+  attackPower = attackPower + parseInt(characters.ap); //not calculating the right ap... needs the initial ap
   $("#hero").attr("attack-power", attackPower);
   $("#opponent").attr("hit-points", hpOpponent);
-  console.log("Opponents HP: " + hpOpponent);
-
+  console.log("Attack Power: " + attackPower);
 
   //check the hp of the opponent before firing the next shot
 
@@ -81,8 +87,6 @@ $(".arena, #attack").on("click", function() {
   console.log("Hero's HP: " + hpHero);
 
   //check to see of the hero's hp is 0
-  
-
 });
 
 //**  Functions  **//
@@ -91,8 +95,9 @@ function initGame() {
   for (var i = 0; i < characters.length; i++) {
     var character = $("<div>");
     var image = $("<img>");
-    character.addClass("character float-left");
     character
+      .addClass("character float-left")
+      .attr("name", characters[i].name)
       .attr("hit-points", characters[i].hp)
       .attr("attack-power", characters[i].ap)
       .attr("counter-power", characters[i].cp);
