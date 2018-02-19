@@ -39,16 +39,20 @@ var characters = {
   }
 
   function makeStartButton () {
-    var startButton = $("<button>");
-    startButton
-    .text("Start Game")
-    .attr("id" , "start")
-    ;
-    $(".scores").append(startButton);
+      var startButton = $("<button>");
+      startButton
+      .text("Start Game")
+      .attr("id" , "start")
+      ;
+      $(".scores").append(startButton);
   }
 
   function hideStartButton () {
       $("#start").hide();
+  }
+
+  function showStartButton () {
+      $("#start").show();
   }
 
   function makeCharacter (element) {
@@ -71,9 +75,9 @@ var characters = {
 
   //display all characters in div
   function displayCharacters () {
-    Object.keys(characters).forEach(function(key) {
-        $(".character-select").append(makeCharacter(key));
-    });
+      Object.keys(characters).forEach(function(key) {
+          $(".character-select").append(makeCharacter(key));
+        });
   }
 
   function heroExists () {
@@ -86,9 +90,9 @@ var characters = {
   }
 
   function chooseHero (name) { 
-    $(name).remove();
-    $(".arena").append(name);
-    $(name).attr("id", "hero");
+      $(name).remove();
+      $(".arena").append(name);
+      $(name).attr("id", "hero");
 }
 
   function opponentExists () {
@@ -99,22 +103,50 @@ var characters = {
           return true;
       }
   }
-
-  function chooseOpponent (name) {
-    $(name).remove();
-    $(".arena").append(name);
-    $(name)
-    .removeClass("float-left")
-    .addClass("float-right")
-    .attr("id", "opponent");
-
-  }
   
-  //choose opponent
+  function chooseOpponent (name) {
+      $(name).remove();
+      $(".arena").append(name);
+      $(name)
+      .removeClass("float-left")
+      .addClass("float-right")
+      .attr("id", "opponent");
+  }
 
-  //make attack button
+  function makeAttackButton () {
+      var attackButton = $("<button>");
+      attackButton
+      .text("Attack!")
+      .attr("id" , "attack")
+      ;
+      $(".arena").append(attackButton);
+  }
 
   //attack hero
+  function attack () {
+    var heroName = $("#hero").attr("name");
+    var attackPower = parseInt($("#hero").attr("attack-power"));
+    var baseAttackPower = parseInt(characters[heroName].ap);
+    var hpHero = parseInt($("#hero").attr("hit-points"));
+    var counterPower = parseInt($("#opponent").attr("counter-power"));
+    var hpOpponent = parseInt($("#opponent").attr("hit-points"));
+  
+    //reduce the hp of opponent by ap of hero and double hero ap
+    hpOpponent -= attackPower;
+    attackPower = attackPower + baseAttackPower;
+    $("#hero").attr("attack-power", attackPower);
+    $("#opponent").attr("hit-points", hpOpponent);
+  
+    //check the hp of the opponent before firing the next shot
+  
+    //reduce the hp of the hero by cp of the opponent
+    hpHero -= counterPower;
+    $("#hero").attr("hit-points", hpHero);
+    console.log("Hero's HP: " + hpHero);
+    console.log("Opponent's HP: " + hpOpponent);
+  
+    //check to see of the hero's hp is 0
+  }
 
   //attack opponent
 
@@ -139,7 +171,12 @@ $(".character-select").on("click", "div.character", function () {
         chooseHero(this);
     } else if( heroExists() && !opponentExists() ) {
         chooseOpponent(this);
+        makeAttackButton();
     }
+});
+
+$(".arena, #attack").on("click", function() {
+    attack();
 });
 
 
