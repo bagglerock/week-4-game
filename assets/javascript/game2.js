@@ -2,31 +2,31 @@
 var characters = {
     luke : {
         name : "luke",
-      hp : 100,
-      ap : 5,
-      cp : 10,
-      pic : "./assets/images/luke.jpg"
+        hp : 100,
+        ap : 5,
+        cp : 10,
+        pic : "./assets/images/luke.jpg"
     },
     obi : {
         name : "obi",
-      hp : 120,
-      ap : 8,
-      cp : 15,
-      pic : "./assets/images/obi.jpg"
+        hp : 120,
+        ap : 8,
+        cp : 15,
+        pic : "./assets/images/obi.jpg"
     },
     sid : {
         name: "sid",
-      hp : 150,
-      ap : 12,
-      cp : 18,
-      pic : "./assets/images/sid.png"
+        hp : 150,
+        ap : 12,
+        cp : 18,
+        pic : "./assets/images/sid.png"
     },
     vader : {
         name : "vader",
-      hp : 180,
-      ap : 15,
-      cp : 20,
-      pic : "./assets/images/vader.jpg"
+        hp : 180,
+        ap : 15,
+        cp : 20,
+        pic : "./assets/images/vader.jpg"
     }
   }
 
@@ -76,13 +76,41 @@ var characters = {
     });
   }
 
-  //choose hero
+  function heroExists () {
+      var heroLength = $("#hero").length;
+      if (heroLength === 0){
+          return false;
+      } else {
+          return true;
+      }
+  }
 
-  //hero exists
+  function chooseHero (name) { 
+    $(name).remove();
+    $(".arena").append(name);
+    $(name).attr("id", "hero");
+}
 
+  function opponentExists () {
+      var opponentLength = $("#opponent").length;
+      if (opponentLength === 0){
+          return false;
+      } else {
+          return true;
+      }
+  }
+
+  function chooseOpponent (name) {
+    $(name).remove();
+    $(".arena").append(name);
+    $(name)
+    .removeClass("float-left")
+    .addClass("float-right")
+    .attr("id", "opponent");
+
+  }
+  
   //choose opponent
-
-  //opponent exists
 
   //make attack button
 
@@ -104,7 +132,15 @@ makeStartButton();
 
 $("#start").on("click", function () {
     initialize();
-})
+});
+
+$(".character-select").on("click", "div.character", function () {
+    if ( !heroExists() ) {
+        chooseHero(this);
+    } else if( heroExists() && !opponentExists() ) {
+        chooseOpponent(this);
+    }
+});
 
 
 
