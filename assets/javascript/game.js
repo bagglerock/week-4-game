@@ -63,6 +63,8 @@ function clearCharacterSelect () {
 function makeCharacter(element) {
   var character = $("<div>");
   var image = $("<img>");
+  var overlay = $("<div>");
+  var hpOverlay = characters[element].hp + "/" + characters[element].hp;
   character
     .addClass("character float-left unselected")
     .attr("name", characters[element].name)
@@ -70,7 +72,11 @@ function makeCharacter(element) {
     .attr("attack-power", characters[element].ap)
     .attr("counter-power", characters[element].cp);
   image.attr("src", characters[element].pic);
+  overlay
+  .addClass("overlay")
+  .text(hpOverlay);
   character = $(character).append(image);
+  character = $(character).append(overlay);
   return character;
 }
 
@@ -145,22 +151,30 @@ function removeAttackButton() {
 
 function attackOpponent() {
   var heroName = $("#hero").attr("name");
+  var opponentName = $("#opponent").attr("name");
   var baseAttackPower = parseInt(characters[heroName].ap);
   var attackPower = parseInt($("#hero").attr("attack-power"));
   var hpOpponent = parseInt($("#opponent").attr("hit-points"));
+  var hpOverlay;
 
   hpOpponent -= attackPower;
   attackPower = attackPower + baseAttackPower;
+  hpOverlay = hpOpponent + "/" + characters[opponentName].hp;
   $("#hero").attr("attack-power", attackPower);
   $("#opponent").attr("hit-points", hpOpponent);
+  $("#opponent > .overlay").text(hpOverlay);
 }
 
 function counterHero() {
   var hpHero = parseInt($("#hero").attr("hit-points"));
   var counterPower = parseInt($("#opponent").attr("counter-power"));
+  var heroName = $("#hero").attr("name");
+  var hpOverlay;
 
   hpHero -= counterPower;
+  hpOverlay = hpHero + "/" + characters[heroName].hp;
   $("#hero").attr("hit-points", hpHero);
+  $("#hero > .overlay").text(hpOverlay);
 }
 
 function heroIsDead() {
@@ -234,3 +248,5 @@ $(".arena").on("click", "#attack", function() {
 //because character-select is cleared, the showstartbutton doesnt work anymore
 
 //when character wins show results and have a clear button
+
+//add some kind of preloading for images

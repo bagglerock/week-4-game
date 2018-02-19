@@ -49,7 +49,12 @@ footer {
     height: 220px;
     padding-left: 10px;
     
+}
 
+.overlay {
+    position: relative;
+    top: -20px;
+    width: 100%;
 }
 
 .arena {
