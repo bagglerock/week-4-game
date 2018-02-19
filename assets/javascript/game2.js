@@ -44,7 +44,7 @@ function initialize() {
 function makeStartButton() {
   var startButton = $("<button>");
   startButton.text("Start Game").attr("id", "start");
-  $(".scores").append(startButton);
+  $(".character-select").append(startButton);
 }
 
 function hideStartButton() {
@@ -114,6 +114,10 @@ function chooseOpponent(name) {
     .attr("id", "opponent");
 }
 
+function removeOpponent () {
+    $("#opponent").remove();
+}
+
 function makeAttackButton() {
   var attackButton = $("<button>");
   attackButton.text("Attack!").attr("id", "attack");
@@ -176,7 +180,7 @@ function showLose() {
 
 makeStartButton();
 
-$(".scores").on("click", "#start", function() {
+$(".character-select").on("click", "#start", function() {
   initialize();
 });
 
@@ -192,15 +196,14 @@ $(".character-select").on("click", ".character", function() {
 $(".arena").on("click", "#attack", function() {
   attackOpponent();
   if (opponentIsDead()) {
-    showWin();
     removeAttackButton();
-    showStartButton();
+    removeOpponent();
+    chooseOpponent();
   } else {
     counterHero();
   }
   if (heroIsDead()) {
     showLose();
     removeAttackButton();
-    showStartButton();
   }
 });
