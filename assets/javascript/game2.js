@@ -1,24 +1,28 @@
 //  Array of characters
 var characters = {
     luke : {
+        name : "luke",
       hp : 100,
       ap : 5,
       cp : 10,
       pic : "./assets/images/luke.jpg"
     },
     obi : {
+        name : "obi",
       hp : 120,
       ap : 8,
       cp : 15,
       pic : "./assets/images/obi.jpg"
     },
     sid : {
+        name: "sid",
       hp : 150,
       ap : 12,
       cp : 18,
-      pic : "./assets/images/sid.jpg"
+      pic : "./assets/images/sid.png"
     },
     vader : {
+        name : "vader",
       hp : 180,
       ap : 15,
       cp : 20,
@@ -28,9 +32,49 @@ var characters = {
 
   //  Functions
 
-  //initialize variables
+  //initialize
+  function initialize () {
+      displayCharacters();
+      hideStartButton();
+  }
+
+  function makeStartButton () {
+    var startButton = $("<button>");
+    startButton
+    .text("Start Game")
+    .attr("id" , "start")
+    ;
+    $(".scores").append(startButton);
+  }
+
+  function hideStartButton () {
+      $("#start").hide();
+  }
+
+  function makeCharacter (element) {
+      var character = $("<div>");
+      var image = $("<img>");
+      character
+      .addClass("character float-left")
+      .attr("name", characters[element].name)
+      .attr("hit-points", characters[element].hp)
+      .attr("attack-power", characters[element].ap)
+      .attr("counter-power", characters[element].cp)
+      ;
+      image
+      .attr("src", characters[element].pic)
+      ;
+      character = $(character).append(image);
+      return character;
+  }
+
 
   //display all characters in div
+  function displayCharacters () {
+    Object.keys(characters).forEach(function(key) {
+        $(".character-select").append(makeCharacter(key));
+    });
+  }
 
   //choose hero
 
@@ -55,6 +99,14 @@ var characters = {
 
 
   //  Script
+
+makeStartButton();
+
+$("#start").on("click", function () {
+    initialize();
+})
+
+
 
   //  General Strategy
   /*
