@@ -36,9 +36,10 @@ var characters = {
 
 //initialize
 function initialize() {
-  clear();
+  clearArena();
+  clearCharacterSelect();
   displayCharacters();
-  hideStartButton();
+  removeStartButton();
 }
 
 function makeStartButton() {
@@ -47,16 +48,15 @@ function makeStartButton() {
   $(".character-select").append(startButton);
 }
 
-function hideStartButton() {
-  $("#start").hide();
+function removeStartButton() {
+  $("#start").remove();
 }
 
-function showStartButton() {
-  $("#start").show();
-}
-
-function clear() {
+function clearArena() {
   $(".arena").empty();
+}
+
+function clearCharacterSelect () {
   $(".character-select").empty();
 }
 
@@ -217,6 +217,7 @@ $(".arena").on("click", "#attack", function() {
       chooseOpponent();
     } else {
       showWin();
+      makeStartButton();
       //show the start button again
     }
   } else {
@@ -226,6 +227,8 @@ $(".arena").on("click", "#attack", function() {
     removeHero();
     showLose();
     removeAttackButton();
+    clearCharacterSelect();
+    makeStartButton();
   }
 });
 //because character-select is cleared, the showstartbutton doesnt work anymore
