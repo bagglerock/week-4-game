@@ -1,6 +1,14 @@
 //  Array of characters
 var wins = 0;
 var losses = 0;
+var startMessage = "Click start to start game.";
+var chooseHeroMessage = "Please choose your hero.";
+var chooseOpponentMessage = "Please choose your opponent.";
+var attackMessage = "Click attack to battle";
+var opponentDefeatedMessage = "Your opponent has been defeated.  Choose you next opponent.";
+var heroDefeatedMessage = "You lose.  Click the start button to battle again.";
+var winMessage = "Congratulations, you win.  Click the start button to battle again.";
+var messageHTML = $("#message");
 var characters = {
   luke: {
     name: "luke",
@@ -36,28 +44,24 @@ var characters = {
 
 //initialize
 function initialize() {
-  clearArena();
-  clearCharacterSelect();
+  clearCharacters();
   displayCharacters();
   removeStartButton();
+  showScore();
 }
 
 function makeStartButton() {
   var startButton = $("<button>");
   startButton.text("Start Game").attr("id", "start");
-  $(".character-select").append(startButton);
+  $(".scoreboard").append(startButton);
 }
 
 function removeStartButton() {
   $("#start").remove();
 }
 
-function clearArena() {
-  $(".arena").empty();
-}
-
-function clearCharacterSelect () {
-  $(".character-select").empty();
+function clearCharacters() {
+  $(".character").remove();
 }
 
 function makeCharacter(element) {
@@ -80,11 +84,11 @@ function makeCharacter(element) {
   return character;
 }
 
-//display all characters in div
 function displayCharacters() {
   Object.keys(characters).forEach(function(key) {
     $(".character-select").append(makeCharacter(key));
   });
+  messageHTML.text(chooseHeroMessage);
 }
 
 function heroExists() {
@@ -102,6 +106,7 @@ function chooseHero(name) {
   $(name)
     .attr("id", "hero")
     .removeClass("unselected");
+    messageHTML.text(chooseOpponentMessage);
 }
 
 function opponentExists() {
@@ -133,6 +138,7 @@ function removeHero() {
 
 function allOpponentsDead() {
   if ($(".unselected").length === 0) {
+    messageHTML.text(winMessage);
     return true;
   } else {
     return false;
@@ -142,7 +148,7 @@ function allOpponentsDead() {
 function makeAttackButton() {
   var attackButton = $("<button>");
   attackButton.text("Attack!").attr("id", "attack");
-  $(".arena").append(attackButton);
+  $(".scoreboard").append(attackButton);
 }
 
 function removeAttackButton() {
@@ -195,21 +201,40 @@ function opponentIsDead() {
   }
 }
 
-function showWin() {
+function updateWins() {
   wins++;
-  console.log("You Win!!!");
 }
 
-function showLose() {
+function updateLosses() {
   losses++;
-  console.log("You Lose!!!");
+}
+
+function showScore () {
+  $("#wins").text(wins);
+  $("#losses").text(losses);
+}
+
+function showStartMessage () {
+  messageHTML.text(startMessage);
+}
+
+function showOppDefeatedMess () {
+  messageHTML.text(opponentDefeatedMessage);
+}
+
+function showHeroDefeatedMess () {
+  messageHTML.text(heroDefeatedMessage);
+}
+function showAttackMessage () {
+  messageHTML.text(attackMessage);
 }
 
 //  Script
 
 makeStartButton();
+showStartMessage();
 
-$(".character-select").on("click", "#start", function() {
+$(".scoreboard").on("click", "#start", function() {
   initialize();
 });
 
@@ -219,6 +244,7 @@ $(".character-select").on("click", ".character", function() {
   } else if (heroExists() && !opponentExists()) {
     chooseOpponent(this);
     makeAttackButton();
+    showAttackMessage();
   }
 });
 
@@ -227,22 +253,25 @@ $(".arena").on("click", "#attack", function() {
   if (opponentIsDead()) {
     removeAttackButton();
     removeOpponent();
+    console.log("test");
+    showOppDefeatedMess();
     if (!allOpponentsDead()) {
       chooseOpponent();
     } else {
-      showWin();
+      updateWins();
       makeStartButton();
-      //show the start button again
+      showScore();
     }
   } else {
     counterHero();
   }
   if (heroIsDead()) {
     removeHero();
-    showLose();
+    updateLosses();
+    showHeroDefeatedMess();
     removeAttackButton();
-    clearCharacterSelect();
     makeStartButton();
+    showScore();
   }
 });
 //because character-select is cleared, the showstartbutton doesnt work anymore

@@ -8,7 +8,6 @@ header {
     padding-left: 5px;
     width: 100%;
     border-bottom: 2px yellow solid;
-    
 }
 
 main {
@@ -31,22 +30,24 @@ footer {
     width: 715px;
 }
 
-.scores, .character-select, .arena {
+.messages, .character-select, .arena {
     box-sizing: border-box;
     border: solid yellow 2px;
     width: 100%;
     margin: 5px 0;
     text-align: center;
-    padding-top: 5px;
+    padding: 10px;
 
 }
-.scores{
+.messages {
     height: 75px;
+    color: yellow;
+    padding: 15px;
     
 }
 
 .character-select {
-    height: 220px;
+    height: 225px;
     padding-left: 10px;
     
 }
@@ -59,10 +60,8 @@ footer {
 
 .arena {
     height: 300px;
+    padding: 50px;
 }
-
-
-
 
 .character {
     position: relative;
@@ -72,6 +71,18 @@ footer {
     border: solid white 2px;
     color: white;
 
+}
+
+.scoreboard {
+    position: absolute;
+    background-color:#111;
+    color: yellow;
+    height: 250px;
+    width: 200px;
+    top: 425px;
+    left: 275px;
+    text-align: center;
+    padding-top: 25px;
 }
 
 .float-left {

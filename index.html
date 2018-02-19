@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Week-4-Game</title>
 </head>
+
 <body>
     <div class="wrapper">
-        <header><a href="https://fontmeme.com/star-wars-font/"><img src="https://fontmeme.com/permalink/180216/88ad187c1113a4d4a400cfbcc4d86cdf.png" alt="star-wars-font" border="0"></a></header>
+        <header>
+            <a href="https://fontmeme.com/star-wars-font/">
+                <img src="https://fontmeme.com/permalink/180216/88ad187c1113a4d4a400cfbcc4d86cdf.png" alt="star-wars-font" border="0">
+            </a>
+        </header>
         <main>
             <div class="main-wrapper">
-                <div class="scores"></div>
+                <div class="messages"><h4 id="message"></h4></div>
                 <div class="character-select"></div>
-                <div class="arena"></div>
+                <div class="arena">
+                    <div class="scoreboard">
+                        <p>Wins:
+                            <span id="wins"></span>
+                        </p>
+                        <p>Losses:
+                            <span id="losses"></span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </main>
         <footer>&copy;Oscar Villalta 2018</footer>
@@ -23,4 +38,5 @@
 </body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="./assets/javascript/game.js"></script>
+
 </html>
