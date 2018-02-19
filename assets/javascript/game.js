@@ -5,22 +5,22 @@ var characters = {
   luke: {
     name: "luke",
     hp: 100,
-    ap: 5,
-    cp: 10,
+    ap: 8,
+    cp: 5,
     pic: "./assets/images/luke.jpg"
   },
   obi: {
     name: "obi",
     hp: 120,
-    ap: 8,
-    cp: 15,
+    ap: 10,
+    cp: 8,
     pic: "./assets/images/obi.jpg"
   },
   sid: {
     name: "sid",
     hp: 150,
     ap: 12,
-    cp: 18,
+    cp: 12,
     pic: "./assets/images/sid.png"
   },
   vader: {
@@ -121,6 +121,10 @@ function removeOpponent() {
   $("#opponent").remove();
 }
 
+function removeHero() {
+  $("#hero").remove();
+}
+
 function allOpponentsDead() {
   if ($(".unselected").length === 0) {
     return true;
@@ -219,8 +223,11 @@ $(".arena").on("click", "#attack", function() {
     counterHero();
   }
   if (heroIsDead()) {
+    removeHero();
     showLose();
     removeAttackButton();
   }
 });
 //because character-select is cleared, the showstartbutton doesnt work anymore
+
+//when character wins show results and have a clear button

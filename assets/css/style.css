@@ -17,6 +17,7 @@ main {
 
 footer {
     position: absolute;
+    background-color: black;
     height: 25px;
     bottom: 0;
     width: 100%;
