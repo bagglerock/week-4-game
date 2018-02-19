@@ -1,7 +1,7 @@
 //  Array of characters
 var wins = 0;
 var losses = 0;
-var startMessage = "Click start to start game.";
+var startMessage = "Click \"start game\" to start game.";
 var chooseHeroMessage = "Please choose your hero.";
 var chooseOpponentMessage = "Please choose your opponent.";
 var attackMessage = "Click attack to battle";
@@ -209,7 +209,7 @@ function updateLosses() {
   losses++;
 }
 
-function showScore () {
+function updateScores () {
   $("#wins").text(wins);
   $("#losses").text(losses);
 }
@@ -230,6 +230,14 @@ function showAttackMessage () {
 }
 
 //  Script
+
+$.fn.preload = function() {
+  this.each(function(){
+      $('<img/>')[0].src = this;
+  });
+}
+
+$(['./assets/images/luke.jpg','./assets/images/obi.jpg','./assets/images/sid.png','./assets/images/vader.jpg']).preload();
 
 makeStartButton();
 showStartMessage();
@@ -253,14 +261,13 @@ $(".arena").on("click", "#attack", function() {
   if (opponentIsDead()) {
     removeAttackButton();
     removeOpponent();
-    console.log("test");
     showOppDefeatedMess();
     if (!allOpponentsDead()) {
       chooseOpponent();
     } else {
       updateWins();
       makeStartButton();
-      showScore();
+      updateScores();
     }
   } else {
     counterHero();
@@ -271,7 +278,7 @@ $(".arena").on("click", "#attack", function() {
     showHeroDefeatedMess();
     removeAttackButton();
     makeStartButton();
-    showScore();
+    updateScores();
   }
 });
 //because character-select is cleared, the showstartbutton doesnt work anymore
