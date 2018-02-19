@@ -1,4 +1,6 @@
 //  Array of characters
+var wins = 0;
+var losses = 0;
 var characters = {
   luke: {
     name: "luke",
@@ -34,6 +36,7 @@ var characters = {
 
 //initialize
 function initialize() {
+  clear();
   displayCharacters();
   hideStartButton();
 }
@@ -50,6 +53,11 @@ function hideStartButton() {
 
 function showStartButton() {
   $("#start").show();
+}
+
+function clear() {
+  $(".arena").empty();
+  $(".character-select").empty();
 }
 
 function makeCharacter(element) {
@@ -136,19 +144,39 @@ function counterHero() {
   $("#hero").attr("hit-points", hpHero);
 }
 
-function heroIsDead() {}
+function heroIsDead() {
+  var hpHero = parseInt($("#hero").attr("hit-points"));
+  if (hpHero <= 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-function opponentIsDead() {}
+function opponentIsDead() {
+  var hpOpponent = parseInt($("#opponent").attr("hit-points"));
+  if (hpOpponent <= 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-function showWin() {}
+function showWin() {
+  wins++;
+  console.log("You Win!!!");
+}
 
-function showLose() {}
+function showLose() {
+  losses++;
+  console.log("You Lose!!!");
+}
 
 //  Script
 
 makeStartButton();
 
-$("#start").on("click", function() {
+$(".scores").on("click", "#start", function() {
   initialize();
 });
 
@@ -166,11 +194,13 @@ $(".arena").on("click", "#attack", function() {
   if (opponentIsDead()) {
     showWin();
     removeAttackButton();
+    showStartButton();
   } else {
     counterHero();
   }
   if (heroIsDead()) {
     showLose();
     removeAttackButton();
+    showStartButton();
   }
 });
