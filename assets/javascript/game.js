@@ -9,6 +9,9 @@ var opponentDefeatedMessage = "Your opponent has been defeated.  Choose you next
 var heroDefeatedMessage = "You lose.  Click the start button to battle again.";
 var winMessage = "Congratulations, you win.  Click the start button to battle again.";
 var messageHTML = $("#message");
+var audioElement = document.createElement("audio");
+audioElement.setAttribute("src", "./assets/sounds/wilhelm.ogg");
+
 var characters = {
   luke: {
     name: "luke",
@@ -47,7 +50,6 @@ function initialize() {
   clearCharacters();
   displayCharacters();
   removeStartButton();
-  showScore();
 }
 
 function makeStartButton() {
@@ -229,13 +231,18 @@ function showAttackMessage () {
   messageHTML.text(attackMessage);
 }
 
-//  Script
+function playWilhelm () {
+  audioElement.play();
+
+}
 
 $.fn.preload = function() {
   this.each(function(){
       $('<img/>')[0].src = this;
   });
 }
+
+//  Script
 
 $(['./assets/images/luke.jpg','./assets/images/obi.jpg','./assets/images/sid.png','./assets/images/vader.jpg']).preload();
 
@@ -259,6 +266,7 @@ $(".character-select").on("click", ".character", function() {
 $(".arena").on("click", "#attack", function() {
   attackOpponent();
   if (opponentIsDead()) {
+    playWilhelm();
     removeAttackButton();
     removeOpponent();
     showOppDefeatedMess();
@@ -273,6 +281,7 @@ $(".arena").on("click", "#attack", function() {
     counterHero();
   }
   if (heroIsDead()) {
+    playWilhelm();
     removeHero();
     updateLosses();
     showHeroDefeatedMess();

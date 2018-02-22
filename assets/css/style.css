@@ -15,6 +15,7 @@ main {
 }
 
 footer {
+    clear: both;
     position: absolute;
     background-color: black;
     height: 25px;
