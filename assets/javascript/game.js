@@ -286,7 +286,7 @@ function playWilhelm () {
 
 }
 
-//  Preload the images so they load right when the divs are made
+//  Preload the images so they load right when the divs are made, This was btw copied from somewhere... I have to remind myself to ask why it was written this way
 $.fn.preload = function() {
   this.each(function(){
       $('<img/>')[0].src = this;
