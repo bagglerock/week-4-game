@@ -1,99 +1,91 @@
+/* CSS Variables */
+
+:root {
+    --dark: #333;
+    --light: #ddd;
+    --blue: rgb(1, 180, 235);
+    --orange: goldenrod;
+}
+
+/*  Core */
+
+*,
+:after,
+:before {
+    box-sizing: border-box;
+}
+
+html {
+    color: var(--dark);
+}
+
 body {
     background-color: black;
-
-}
-header {
-    height: 75px;
-    padding-top: 5px;
-    padding-left: 5px;
-    width: 100%;
-    border-bottom: 2px yellow solid;
-}
-
-main {
-    width: 100%;
-}
-
-footer {
-    clear: both;
-    position: absolute;
-    background-color: black;
-    height: 25px;
-    bottom: 0;
-    width: 100%;
     color: yellow;
-    text-align: center;
+    line-height: 1.4;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1rem;
+}
+
+p {
+    font-size: 1rem
+}
+
+img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Specifics */
+
+header {
+    padding-top: 1.5rem;
+    border-bottom: yellow solid 2px;
+}
+main {
+    padding: .5rem;
 }
 
 .main-wrapper {
-    margin: 20px 20px;
-    height: 600px;
-    width: 715px;
+    border: solid yellow 1px;
 }
 
-.messages, .character-select, .arena {
-    box-sizing: border-box;
-    border: solid yellow 2px;
-    width: 100%;
-    margin: 5px 0;
+footer {
     text-align: center;
-    padding: 10px;
-
-}
-.messages {
-    height: 75px;
-    color: yellow;
-    padding: 15px;
-    
 }
 
-.character-select {
-    height: 225px;
-    padding-left: 10px;
-    
-}
-
-.overlay {
-    position: relative;
-    top: -20px;
-    width: 100%;
-}
-
-.arena {
-    height: 300px;
-    padding: 50px;
-}
-
-.character {
-    position: relative;
-    margin-right: 10px;
-    height: 200px;
-    width: 160px;
-    border: solid white 2px;
-    color: white;
-
-}
-
-.scoreboard {
-    position: absolute;
-    background-color:#111;
-    color: yellow;
-    height: 250px;
-    width: 200px;
-    top: 425px;
-    left: 275px;
+.messages-area {
     text-align: center;
-    padding-top: 25px;
 }
 
-.float-left {
-    float: left;
+.stable-area {
+    display: grid;
+    justify-content: space-evenly;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, 100px);
 }
 
-.float-right {
-    float: right;
+.arena-area {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
-.clear {
-    clear: both;
+.image {
+    max-width: 200px;
 }

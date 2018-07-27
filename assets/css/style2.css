@@ -1,0 +1,99 @@
+body {
+    background-color: black;
+
+}
+header {
+    height: 75px;
+    padding-top: 5px;
+    padding-left: 5px;
+    width: 100%;
+    border-bottom: 2px yellow solid;
+}
+
+main {
+    width: 100%;
+}
+
+footer {
+    clear: both;
+    position: absolute;
+    background-color: black;
+    height: 25px;
+    bottom: 0;
+    width: 100%;
+    color: yellow;
+    text-align: center;
+}
+
+.main-wrapper {
+    margin: 20px 20px;
+    height: 600px;
+    width: 715px;
+}
+
+.messages, .character-select, .arena {
+    box-sizing: border-box;
+    border: solid yellow 2px;
+    width: 100%;
+    margin: 5px 0;
+    text-align: center;
+    padding: 10px;
+
+}
+.messages {
+    height: 75px;
+    color: yellow;
+    padding: 15px;
+    
+}
+
+.character-select {
+    height: 225px;
+    padding-left: 10px;
+    
+}
+
+.overlay {
+    position: relative;
+    top: -20px;
+    width: 100%;
+}
+
+.arena {
+    height: 300px;
+    padding: 50px;
+}
+
+.character {
+    position: relative;
+    margin-right: 10px;
+    height: 200px;
+    width: 160px;
+    border: solid white 2px;
+    color: white;
+
+}
+
+.scoreboard {
+    position: absolute;
+    background-color:#111;
+    color: yellow;
+    height: 250px;
+    width: 200px;
+    top: 425px;
+    left: 275px;
+    text-align: center;
+    padding-top: 25px;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
