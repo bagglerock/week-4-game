@@ -13,3 +13,5 @@ Directions:
 </ul>
 
 Not much going on in the game but maybe I'll play with this code again.
+
+This little game is written using Javascript, Jquery, HTML, Bootstrap, and CSS
