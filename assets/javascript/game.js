@@ -341,8 +341,3 @@ $(".arena").on("click", "#attack", function() {
     updateScores();
   }
 });
-//because character-select is cleared, the showstartbutton doesnt work anymore
-
-//when character wins show results and have a clear button
-
-//add some kind of preloading for images
