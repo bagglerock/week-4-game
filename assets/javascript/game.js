@@ -92,18 +92,18 @@ $(document).ready(function() {
     })
 
     $(document).on("click", ".image", function(){
-        console.log($(this).attr("id"));
         if (game.gameState === game.gameStates.pro) {
             game.gameState = game.gameStates.ant;
             let hero = $(this).detach();
             let ng = {
+                ...game,
                 protagonist: {
                     name: hero.attr("name"),
                     hp: hero.attr("hp"),
                     cp: hero.attr("cp"),
                     ap: hero.attr("ap")
-                },
-                ...game
+                }
+                
             }
             game = ng;
             hero.appendTo($(".protagonist-area"));
@@ -111,13 +111,13 @@ $(document).ready(function() {
             game.gameState = game.gameStates.play;
             let hero = $(this).detach();
             let ng = {
+                ...game,
                 antagonist: {
                     name: hero.attr("name"),
                     hp: hero.attr("hp"),
                     cp: hero.attr("cp"),
                     ap: hero.attr("ap")
-                },
-                ...game
+                }
             }
             game = ng;
             hero.appendTo($(".antagonist-area"));
@@ -127,7 +127,7 @@ $(document).ready(function() {
 
     $(document).on("click", "#attack", function() {
         if(game.gameState === game.gameStates.play){
-            console.log(game.protagonist.name);
+            console.log(game.protagonist);
 
 
             
