@@ -101,9 +101,9 @@ $(document).ready(function() {
                     name: hero.attr("name"),
                     hp: hero.attr("hp"),
                     cp: hero.attr("cp"),
-                    ap: hero.attr("ap")
+                    ap: hero.attr("ap"),
+                    base: hero.attr("ap")
                 }
-                
             }
             game = ng;
             hero.appendTo($(".protagonist-area"));
@@ -116,7 +116,7 @@ $(document).ready(function() {
                     name: hero.attr("name"),
                     hp: hero.attr("hp"),
                     cp: hero.attr("cp"),
-                    ap: hero.attr("ap")
+                    ap: hero.attr("ap"),
                 }
             }
             game = ng;
@@ -127,14 +127,36 @@ $(document).ready(function() {
 
     $(document).on("click", "#attack", function() {
         if(game.gameState === game.gameStates.play){
-            console.log(game.protagonist);
+            const p = game.protagonist;
+            const a = game.antagonist;
+            if (game.protagonist.hp > 0 && game.antagonist.hp > 0) {
+                let nHP = parseInt(p.hp, 10) - parseInt(a.cp, 10);
+                let nHA = parseInt(a.hp, 10) - parseInt(p.ap, 10);
+                let nAP = parseInt(p.ap, 10) + parseInt(p.base, 10);
+                if (nHP <= 0){
+                    game.losses++;
+                    gameState = gameStates.res;
+                } else if (nHA <= 0){
+                    game.wins++;
+                    gameState = gameStates.res;
+                } else {
+                    let ng = {
+                        ...game,
+                        protagonist: {
+                            ...game.protagonist,
+                            hp: nHP,
+                            ap: nAP
+                        },
+                        antagonist: {
+                            ...game.antagonist,
+                            hp: nHA
+                        }
+                    }
+                }
 
-
-            
-            
-            
+                game = ng;
+            }
+            console.log(game);
         }
     })
-      
-
 })
