@@ -54,6 +54,7 @@ let game = {
         res: 4
     },
     startGame: () => {
+        $(".stable-area").empty();
         characters.map((character, i) => {
             const stableCharDiv = $("<div>");
             const stableCharImg = $("<img>");
@@ -68,6 +69,7 @@ let game = {
             stableCharDiv.append(stableCharImg);
             $(".stable-area").append(stableCharDiv);
         })
+        game.gameState = game.gameStates.pro;
         $("#messages").empty().text(messages.chooseHero);
     },
     makeButton: (name, id, location) => {
@@ -89,6 +91,47 @@ let game = {
         }
         div.append(cT, wT, lT);
         $(".score-area").empty().append(div);
+    },
+    attack: (pro, ant) => {
+        console.log(pro);
+        console.log(ant);
+        let proHP;
+        let antHP;
+        antHP = parseInt(ant.hp, 10) - parseInt(pro.ap, 10);
+        console.log(antHP);
+        if (antHP > 0) {
+            proHP = parseInt(pro.hp, 10) - parseInt(ant.cp, 10);
+            if (proHP > 0){
+                proAP = parseInt(pro.ap, 10) + parseInt(pro.base, 10);
+                let ng = {
+                    ...game,
+                    protagonist: {
+                        ...game.protagonist,
+                        hp: proHP,
+                        ap: proAP
+                    },
+                    antagonist: {
+                        ...game.antagonist,
+                        hp: antHP
+                    }
+                }
+                game = ng;
+                return game;
+            } else {
+                game.losses++
+                $(".protagonist-area").empty();
+                $(".antagonist-area").empty();
+                $("#messages").empty().text(messages.heroDefeated);
+                game.gameState = game.gameStates.res;
+                game.showResults("lose");
+                game.makeButton("Start Game", "start", "score-area");
+            }
+        } else {
+            game.wins++;
+            $("#messages").empty().text(messages.opponentDefeated);
+            $(".antagonist-area").empty();
+            game.gameState = game.gameStates.ant;
+        }
     }
 
 };
@@ -109,6 +152,7 @@ $(document).ready(function() {
     $(document).on("click", ".image", function(){
         if (game.gameState === game.gameStates.pro) {
             game.gameState = game.gameStates.ant;
+            $("#messages").empty().text(messages.chooseOpponent);
             let hero = $(this).detach();
             let ng = {
                 ...game,
@@ -123,6 +167,7 @@ $(document).ready(function() {
             game = ng;
             hero.appendTo($(".protagonist-area"));
         } else if (game.gameState === game.gameStates.ant){
+            $("#messages").empty().text(messages.attack);
             game.gameState = game.gameStates.play;
             let hero = $(this).detach();
             let ng = {
@@ -136,6 +181,7 @@ $(document).ready(function() {
             }
             game = ng;
             hero.appendTo($(".antagonist-area"));
+            $(".score-area").empty();
             game.makeButton("Attack", "attack", "score-area");
         }
     })
@@ -144,34 +190,9 @@ $(document).ready(function() {
         if(game.gameState === game.gameStates.play){
             const p = game.protagonist;
             const a = game.antagonist;
-            if (game.protagonist.hp > 0 && game.antagonist.hp > 0) {
-                let nHP = parseInt(p.hp, 10) - parseInt(a.cp, 10);
-                let nHA = parseInt(a.hp, 10) - parseInt(p.ap, 10);
-                let nAP = parseInt(p.ap, 10) + parseInt(p.base, 10);
-                if (nHP <= 0){
-                    game.losses++;
-                    game.gameState = game.gameStates.res;
-                    game.showResults("lose");
-                } else if (nHA <= 0){
-                    game.wins++;
-                    game.gameState = game.gameStates.ant;
-                } else {
-                    let ng = {
-                        ...game,
-                        protagonist: {
-                            ...game.protagonist,
-                            hp: nHP,
-                            ap: nAP
-                        },
-                        antagonist: {
-                            ...game.antagonist,
-                            hp: nHA
-                        }
-                    }
-                    game = ng;
-                }
-            }
-            console.log(game);
+            let result = game.attack(p, a);
+            // console.log(result);
+            
         }
     })
 })
