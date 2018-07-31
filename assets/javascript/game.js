@@ -98,9 +98,10 @@ let game = {
         let proHP;
         let antHP;
         antHP = parseInt(ant.hp, 10) - parseInt(pro.ap, 10);
-        console.log(antHP);
+        console.log(`Antagonists HP is ${antHP}`);
         if (antHP > 0) {
             proHP = parseInt(pro.hp, 10) - parseInt(ant.cp, 10);
+            console.log(`Protagonists HP is ${proHP}`);
             if (proHP > 0){
                 proAP = parseInt(pro.ap, 10) + parseInt(pro.base, 10);
                 let ng = {
@@ -128,6 +129,7 @@ let game = {
             }
         } else {
             game.wins++;
+            console.log(`Protagonists HP is at ${pro.hp}`);
             $("#messages").empty().text(messages.opponentDefeated);
             $(".antagonist-area").empty();
             game.gameState = game.gameStates.ant;
