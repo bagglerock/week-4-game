@@ -74,6 +74,21 @@ let game = {
         const button = $("<button>");
         button.attr("id", id).text(name);
         $(`.${location}`).append(button);
+    },
+    showResults: (condition) => {
+        const div = $("<div>");
+        let wT = $("<p>");
+        let lT = $("<p>");
+        let cT = $("<p>");
+        wT.text(`Wins: ${game.wins}`);
+        lT.text(`Losses: ${game.losses}`);
+        if(condition === "win"){
+            cT.text(`Congratulations, you are a winner!`);
+        } else {
+            cT.text(`You lose. Sorry, try again.`);
+        }
+        div.append(cT, wT, lT);
+        $(".score-area").empty().append(div);
     }
 
 };
@@ -135,10 +150,11 @@ $(document).ready(function() {
                 let nAP = parseInt(p.ap, 10) + parseInt(p.base, 10);
                 if (nHP <= 0){
                     game.losses++;
-                    gameState = gameStates.res;
+                    game.gameState = game.gameStates.res;
+                    game.showResults("lose");
                 } else if (nHA <= 0){
                     game.wins++;
-                    gameState = gameStates.res;
+                    game.gameState = game.gameStates.ant;
                 } else {
                     let ng = {
                         ...game,
@@ -152,9 +168,8 @@ $(document).ready(function() {
                             hp: nHA
                         }
                     }
+                    game = ng;
                 }
-
-                game = ng;
             }
             console.log(game);
         }
